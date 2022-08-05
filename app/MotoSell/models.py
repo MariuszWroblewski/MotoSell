@@ -26,7 +26,7 @@ class Oferta(models.Model):
     ]
 
     tytul = models.CharField(max_length=64)
-    opis = models.CharField(max_length=512)
+    opis = models.TextField()
     kategoria = models.CharField(max_length=16, choices=kategoria_choices, default=OSOBOWY)
     marka = models.CharField(max_length=32)
     model = models.CharField(max_length=32)
@@ -36,6 +36,6 @@ class Oferta(models.Model):
     moc = models.IntegerField()
     paliwo = models.CharField(max_length=8, choices=paliwo_choices)
     uzytkownik = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    zdjecie = models.ImageField(null=True)
+    zdjecie = models.ImageField(null=True, upload_to='images/')
     data_dodania = models.DateField()
-    data_publikacji = models.DateField(null=True)
+    data_publikacji = models.DateField(null=True, blank=True)
