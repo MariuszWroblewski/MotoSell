@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 def get_all_offerts(request):
-    offers = Oferta.objects.all()
+    offers = Oferta.objects.all().order_by('-data_publikacji')
     context = {'oferty': offers}
     return render(request, 'MotoSell/oferty.html', context)
 
@@ -19,16 +19,11 @@ def login_template(request):
     return render(request, 'registration/login.html')
 
 
-def login(request):
-    user = User.objects.create_user(request.name)
-    return render(request, 'registration/login.html')
-
-
 def register_template(request):
     if request.method == 'POST':
         f = UserCreationForm(request.POST)
         if f.is_valid():
-            messages.success(request, 'Form submission successful')
+            messages.success(request, 'Konto pomyślnie utworzone')
             f.save()
             return render(request, 'registration/register.html', {'form': f})
     else:
