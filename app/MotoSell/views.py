@@ -1,36 +1,31 @@
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from .models import Oferta
-from django.contrib.auth import logout
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-
-
+from rest_framework.response import Response
+from .models import Offer
+from rest_framework import generics, permissions
+from .serializers import OfferSerializer
 # Create your views here.
 
 
-def get_all_offerts(request):
-    offers = Oferta.objects.all().order_by('-data_publikacji')
-    context = {'oferty': offers}
-    return render(request, 'MotoSell/oferty.html', context)
+class OfferListView(generics.ListCreateAPIView):
+    """
+    Get list of Offers.
+    """
+    queryset = Offer.objects.all().order_by('-pub_date')
+    serializer_class = OfferSerializer
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
+    name = 'offer-list'
 
 
-def login_template(request):
-    return render(request, 'registration/login.html')
+class OfferDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Get details of Offer by it's id.
+    """
+    queryset = Offer.objects.all().order_by('-pub_date')
+    serializer_class = OfferSerializer
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
+    name = 'offer-detail'
 
-
-def register_template(request):
-    if request.method == 'POST':
-        f = UserCreationForm(request.POST)
-        if f.is_valid():
-            messages.success(request, 'Konto pomyślnie utworzone')
-            f.save()
-            return render(request, 'registration/register.html', {'form': f})
-    else:
-        f = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': f})
-
-
-def logout_view(request):
-    logout(request)
-    return render(get_all_offerts)
+    def destroy(self, request, *args, **kwargs):
+        offer = self.get_object()
+        offer.is_deleted = True
+        offer.save()
+        return Response(data='delete seccess')

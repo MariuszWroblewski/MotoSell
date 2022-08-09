@@ -1,27 +1,27 @@
 {% extends 'MotoSell/base.html' %}
 {% block content %}
 <div class="container w-70 ">
-    {% for oferta in oferty %}
+    {% for offer in offers %}
     <div class="card mb-3 mt-3">
-        <img src="media/{{oferta.zdjecie}}" class="card-img-top" alt="cycki"/>
+        <img src="media/{{offer.zdjecie}}" class="card-img-top" alt="cycki"/>
         <div class="card-body">
-            <h5 class="card-title">{{oferta.tytul}}</h5>
+            <h5 class="card-title">{{offer.tytul}}</h5>
             <div class="d-flex flex-row">
                 <div class="col pl-4">
-                    <div class="row"><a class="text-muted">Marka: </a> {{oferta.marka}}</div>
-                    <div class="row"><a class="text-muted">Model: </a> {{oferta.model}}</div>
-                    <div class="row"><a class="text-muted">Rok produkcji: </a> {{oferta.rok_produkcji}}</div>
-                    <div class="row"><a class="text-muted">Moc: </a> {{oferta.moc}}km</div>
-                    <div class="row"><a class="text-muted">Paliwo: </a> {{oferta.paliwo}}</div>
+                    <div class="row"><a class="text-muted">Marka: </a> {{offer.marka}}</div>
+                    <div class="row"><a class="text-muted">Model: </a> {{offer.model}}</div>
+                    <div class="row"><a class="text-muted">Rok produkcji: </a> {{offer.rok_produkcji}}</div>
+                    <div class="row"><a class="text-muted">Moc: </a> {{offer.moc}}km</div>
+                    <div class="row"><a class="text-muted">Paliwo: </a> {{offer.paliwo}}</div>
                 </div>
                 <div class="col border border-right-0 border-top-0 border-bottom-0 border-dark pl-5">
-                    <div class="row"><a class="text-muted">Przebieg: </a> {{oferta.przebieg}}km</div>
-                    <div class="row"><a class="text-muted">Pojemność: </a> {{oferta.pojemnosc_skokowa}}cm^3</div>
+                    <div class="row"><a class="text-muted">Przebieg: </a> {{offer.przebieg}}km</div>
+                    <div class="row"><a class="text-muted">Pojemność: </a> {{offer.pojemnosc_skokowa}}cm^3</div>
                 </div>
             </div>
-            <p class="card-text mt-3">{{oferta.opis|slice:"0:256"}}{% if oferta.opis|length > 256 %}...{% endif %}</p>
+            <p class="card-text mt-3">{{offer.opis|slice:"0:256"}}{% if offer.opis|length > 256 %}...{% endif %}</p>
             <div class="d-flex flex-row">
-                <div class="col justify-content-start"><p class="card-text"><small class="text-muted">Opublikowano {{oferta.data_publikacji|date:'d.m.Y'}} przez {{oferta.uzytkownik}}</small></p></div>
+                <div class="col justify-content-start"><p class="card-text"><small class="text-muted">Opublikowano {{offer.data_publikacji|date:'d.m.Y'}} przez {{offer.uzytkownik}}</small></p></div>
                 <div class="col text-right"><a href="#" class="btn btn-dark">Szczegóły</a></div>
             </div>
         </div>

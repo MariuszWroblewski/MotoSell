@@ -1,12 +1,8 @@
 from django.urls import path, include
 from . import views
-from django.contrib.auth import urls
 
 
 urlpatterns = [
-    path('', views.get_all_offerts, name='home'),
-    path('register', views.register_template, name='register'),
-    path('login', views.login_template, name='login'),
-    path('logout', views.logout_view, name='logout'),
-    path('accounts/', include(urls)),
+    path('offers', views.OfferListView.as_view(), name=views.OfferListView.name),
+    path('offers/<int:pk>', views.OfferDetail.as_view(), name=views.OfferDetail.name),
 ]

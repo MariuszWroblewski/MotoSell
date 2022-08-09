@@ -4,38 +4,42 @@ from django.conf import settings
 # Create your models here.
 
 
-class Oferta(models.Model):
+class Offer(models.Model):
 
-    OSOBOWY = 'osobowy'
-    MOTOCYKL = 'motocykl'
-    CIEZAROWY = 'ciezarowy'
-    BENZYNA = 'pb'
+    PERSONAL = 'osobowy'
+    MOTORCYCLE = 'motocykl'
+    TRUCK = 'ciezarowy'
+    PETROL = 'pb'
     DIESEL = 'on'
     LPG = 'lpg'
 
     kategoria_choices = [
-        (OSOBOWY, 'Osobowy'),
-        (MOTOCYKL, 'Motocykl'),
-        (CIEZAROWY, 'Ciężarowy'),
+        (PERSONAL, 'Osobowy'),
+        (MOTORCYCLE, 'Motocykl'),
+        (TRUCK, 'Ciężarowy'),
     ]
 
     paliwo_choices = [
-        (BENZYNA, 'Benzyna'),
+        (PETROL, 'Benzyna'),
         (DIESEL, 'Diesel'),
         (LPG, 'LPG'),
     ]
 
-    tytul = models.CharField(max_length=64)
-    opis = models.TextField()
-    kategoria = models.CharField(max_length=16, choices=kategoria_choices, default=OSOBOWY)
-    marka = models.CharField(max_length=32)
+    title = models.CharField(max_length=64)
+    description = models.TextField()
+    category = models.CharField(max_length=16, choices=kategoria_choices, default=PERSONAL)
+    brand = models.CharField(max_length=32)
     model = models.CharField(max_length=32)
-    rok_produkcji = models.IntegerField()
-    przebieg = models.IntegerField()
-    pojemnosc_skokowa = models.IntegerField()
-    moc = models.IntegerField()
-    paliwo = models.CharField(max_length=8, choices=paliwo_choices)
-    uzytkownik = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    zdjecie = models.ImageField(null=True, upload_to='images/')
-    data_dodania = models.DateField()
-    data_publikacji = models.DateField(null=True, blank=True)
+    production_year = models.IntegerField()
+    mileage = models.IntegerField()
+    capacity = models.IntegerField()
+    power = models.IntegerField()
+    fuel = models.CharField(max_length=8, choices=paliwo_choices)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    image = models.ImageField(null=True, upload_to='images/')
+    add_date = models.DateField()
+    pub_date = models.DateField(null=True, blank=True)
+    is_publicated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
