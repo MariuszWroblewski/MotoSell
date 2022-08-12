@@ -1,7 +1,4 @@
-from django.shortcuts import render
-from rest_framework import generics
-from rest_framework import status
-from rest_framework import permissions
+from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from .serializers import RegisterUserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -12,13 +9,14 @@ from rest_framework.views import APIView
 class CreateUser(generics.CreateAPIView):
     """
     Create a new user.
+    permissions - AllowAny
     """
     permission_classes = [permissions.AllowAny]
     serializer_class = RegisterUserSerializer
     name = 'create-user'
 
 
-class LogoutUser(generics.GenericAPIView):
+class LogoutUser(APIView):
     """
     Logout.
     permissions - isAuthenticated

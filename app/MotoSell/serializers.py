@@ -1,4 +1,3 @@
-from rest_framework.validators import UniqueTogetherValidator
 from rest_framework import serializers
 from .models import *
 from datetime import date
@@ -8,7 +7,7 @@ class OfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Offer
-        fields = ['id', 'title', 'description', 'category', 'brand', 'model', 'production_year', 'mileage', 'capacity', 'power', 'fuel', 'user', 'image', 'add_date', 'pub_date', 'is_publicated']
+        fields = '__all__'
 
     def validate_production_year(self, production_year):
         if production_year > date.today().year or production_year < 1800:
