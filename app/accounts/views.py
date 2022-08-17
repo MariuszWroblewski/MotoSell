@@ -21,7 +21,6 @@ class LogoutUser(APIView):
     Logout.
     permissions - isAuthenticated
     """
-
     permission_classes = [permissions.IsAuthenticated]
     name = 'logout-user'
 
