@@ -35,7 +35,7 @@ class OfferDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Offer.objects.all()
     serializer_class = OfferSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     name = 'offer-detail'
 
     def destroy(self, request, *args, **kwargs):
