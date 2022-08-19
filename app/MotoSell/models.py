@@ -1,5 +1,5 @@
 from django.db import models
-from django.conf import settings
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -35,12 +35,12 @@ class Offer(models.Model):
     capacity = models.IntegerField()
     power = models.IntegerField()
     fuel = models.CharField(max_length=8, choices=paliwo_choices)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    image = models.ImageField(null=True, upload_to='images/')
-    add_date = models.DateField(auto_now_add=True, null=False, blank=True)
-    pub_date = models.DateField(null=True, blank=True)
-    is_pub = models.BooleanField(default=False)
-    is_deleted = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(null=True, upload_to='images/', blank=True)
+    add_date = models.DateField(auto_now_add=True,  blank=False, null=False,)
+    pub_date = models.DateField(default=None, blank=True, null=True)
+    is_pub = models.BooleanField(default=False, blank=True, null=True)
+    is_deleted = models.BooleanField(default=False, blank=True, null=True)
 
     def __str__(self):
         return self.title

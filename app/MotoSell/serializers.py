@@ -9,9 +9,17 @@ class OfferSerializer(serializers.ModelSerializer):
         model = Offer
         fields = '__all__'
 
+    def create(self, validated_data):
+        request = self.context.get('request')
+        instance = self.Meta.model(**validated_data)
+        instance.user = request.user.id
+        instance.save()
+        return instance
+
     def validate_production_year(self, production_year):
         if production_year > date.today().year or production_year < 1800:
-            raise serializers.ValidationError('Błedna data produkcji. Data nie może być wcześniejsza niż 1800 rok i pożniejsza niż obecny')
+            raise serializers.ValidationError('Błedna data produkcji. Data nie może być wcześniejsza'
+                                              ' niż 1800 rok i pożniejsza niż obecny')
         return production_year
 
     def validate_mileage(self, mileage):
