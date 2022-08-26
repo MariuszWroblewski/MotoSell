@@ -4,15 +4,18 @@ from datetime import date
 
 
 class OfferSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
 
     class Meta:
         model = Offer
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'category', 'brand', 'model',
+                 'production_year', 'mileage', 'capacity', 'power', 'fuel', 'user',
+                 'image', 'add_date', 'pub_date', 'is_pub', 'is_deleted']
 
     def create(self, validated_data):
         request = self.context.get('request')
         instance = self.Meta.model(**validated_data)
-        instance.user = request.user.id
+        instance.user = request.user
         instance.save()
         return instance
 
