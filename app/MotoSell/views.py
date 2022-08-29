@@ -1,9 +1,7 @@
-from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework import generics, permissions, status
-from rest_framework.views import APIView
 from .serializers import OfferSerializer
 from .models import Offer
 from .permissions import IsOfferOwner
@@ -95,5 +93,4 @@ class OfferPublishView(generics.RetrieveUpdateDestroyAPIView, UpdateModelMixin):
     name = 'offer-publish-view'
 
     def put(self, request, *args, **kwargs):
-        self.pub_date
         return self.partial_update(request, *args, **kwargs)
